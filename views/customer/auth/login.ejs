@@ -1,0 +1,30 @@
+<%- include('../includes/head.ejs', {pageTitle: "Meeseeks | Login"}) %>
+<body>
+  <%- include('../includes/header.ejs') %>
+  <main>
+    <form action="" method="POST">
+      <p>
+        <label for="email">Email</label>
+        <input
+          type="email"
+          name="email"
+          id="email"
+          placeholder="something@anything.com"
+        />
+      </p>
+      <p>
+        <label for="password">Password</label>
+        <input
+          type="password"
+          name="password"
+          id="password"
+          placeholder="********"
+        />
+      </p>
+
+      <button class="btn">Login</button>
+      <p><a href="/login">Don't have a account? - Signup instead</a></p>
+    </form>
+    <%- include('../includes/footer.ejs') %>
+  </main>
+</body>
