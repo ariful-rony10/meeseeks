@@ -2,15 +2,24 @@
  * Name: auth.controller.js
  * Description: Authentication related logics.
  */
-const User = require('../models/user.model');
-const authUtil = require('../util/authentication');
-const validation = require('../util/validation');
+const User = require('../models/user.model'); // user model
+const authUtil = require('../util/authentication'); // authentication
+const validation = require('../util/validation'); // validation
+const sessionFlash = require('../util/session-flash'); // session flash
 // GET signup page
 const getSignupPage = (req, res) => {
   res.status(200).render('customer/auth/signup');
 };
 // POST signup page
 const signup = async (req, res, next) => {
+  const enteredData = {
+    email: req.body.email,
+    password: req.body.password,
+    fullname: req.body.fullname,
+    street: req.body.street,
+    postal: req.body.postal,
+    city: req.body.city,
+  };
   // Validate user details
   if (
     !userDetailsAreValid.userDetailsAreValid(
@@ -23,7 +32,17 @@ const signup = async (req, res, next) => {
     ) ||
     !validation.emailIsConfirmed(req.body.email, req.body['confirm-email'])
   ) {
-    res.redirect('/signup');
+    // Flash data to session
+    sessionFlash.flashDataToSession(
+      req,
+      {
+        errorMessage: 'Please check your inputs!',
+        ...enteredData,
+      },
+      () => {
+        res.redirect('/signup');
+      }
+    );
     return;
   }
   // Create user data object
@@ -40,7 +59,17 @@ const signup = async (req, res, next) => {
     // Check if  the user email already exists in the db
     const existsAlready = await user.existsAlready();
     if (existsAlready) {
-      res.redirect('/signup');
+      // Flash data to session
+      sessionFlash.flashDataToSession(
+        req,
+        {
+          errorMessage: 'User Exists Already - try login instead!',
+          ...enteredData,
+        },
+        () => {
+          res.redirect('/signup');
+        }
+      );
       return;
     }
     // insert into db
@@ -66,7 +95,18 @@ const login = async (req, res, next) => {
   }
 
   if (!existingUser) {
-    res.redirect('/login');
+    // flash data to session
+    sessionFlash.flashDataToSession(
+      req,
+      {
+        errorMessage: 'Invalid Credentials - Please check email and password!',
+        email: user.email,
+        password: user.password,
+      },
+      () => {
+        res.redirect('/login');
+      }
+    );
     return;
   }
 
@@ -74,7 +114,18 @@ const login = async (req, res, next) => {
     existingUser.password
   );
   if (!passwordIsCorrect) {
-    res.redirect('/login');
+    // flash data to session
+    sessionFlash.flashDataToSession(
+      req,
+      {
+        errorMessage: 'Invalid Credentials - Please check email and password!',
+        email: user.email,
+        password: user.password,
+      },
+      () => {
+        res.redirect('/login');
+      }
+    );
     return;
   }
 
