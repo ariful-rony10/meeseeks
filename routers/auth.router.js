@@ -12,6 +12,7 @@ router.put('/signup/:id');
 router.delete('/signup/:id');
 router.get('/login', authController.getLoginPage);
 router.post('/login', authController.login);
+router.post('/logout', authController.logout);
 
 // Export modules
 module.exports = router;

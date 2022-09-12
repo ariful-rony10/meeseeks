@@ -22,7 +22,7 @@ const signup = async (req, res) => {
 
   res.redirect('/login');
 };
-// POST login page
+// user login page
 const login = async (req, res) => {
   //login logics
   const user = new User(req.body.email, req.body.password);
@@ -49,10 +49,16 @@ const login = async (req, res) => {
 const getLoginPage = (req, res) => {
   res.status(200).render('customer/auth/login');
 };
+// user logout
+const logout = (req, res) => {
+  authUtil.destryUserAuthSession(req);
+  res.redirect('/login');
+}
 
 module.exports = {
   getSignupPage,
   getLoginPage,
   signup,
   login,
+  logout,
 };
