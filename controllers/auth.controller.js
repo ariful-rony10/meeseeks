@@ -1,6 +1,6 @@
 /**
  * Name: auth.controller.js
- * Description:
+ * Description: Authentication related logics.
  */
 const User = require('../models/user.model');
 const authUtil = require('../util/authentication');
@@ -9,7 +9,7 @@ const getSignupPage = (req, res) => {
   res.status(200).render('customer/auth/signup');
 };
 // POST signup page
-const signup = async (req, res) => {
+const signup = async (req, res, next) => {
   const user = new User(
     req.body.email,
     req.body.password,
@@ -18,15 +18,26 @@ const signup = async (req, res) => {
     req.body.postal,
     req.body.city
   );
-  await user.signup();
+  try {
+    await user.signup();
+  } catch (error) {
+    next(error);
+    return;
+  }
 
   res.redirect('/login');
 };
 // user login page
-const login = async (req, res) => {
+const login = async (req, res, next) => {
   //login logics
   const user = new User(req.body.email, req.body.password);
-  const existingUser = await user.getUserWithSameEmail();
+  let existingUser;
+  try {
+    existingUser = await user.getUserWithSameEmail();
+  } catch (error) {
+    next(error);
+    return;
+  }
 
   if (!existingUser) {
     res.redirect('/login');
@@ -53,7 +64,7 @@ const getLoginPage = (req, res) => {
 const logout = (req, res) => {
   authUtil.destryUserAuthSession(req);
   res.redirect('/login');
-}
+};
 
 module.exports = {
   getSignupPage,
