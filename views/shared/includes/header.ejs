@@ -1,5 +1,14 @@
 <header>
-    <nav>
+    <div>
         <a href="/">Meeseeks</a>
+    </div>
+    <nav>
+        <ul>
+            <% if(locals.isAuth) {%> 
+            <li>
+                <button>Logout</button>
+            </li>
+            <% } %> 
+        </ul>
     </nav>
 </header>

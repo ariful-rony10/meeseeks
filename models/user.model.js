@@ -13,6 +13,18 @@ class User {
       city: city,
     };
   }
+
+  // get user with same email
+   getUserWithSameEmail() {
+    return db.getDb().collection('users').findOne({ email: this.email });
+  }
+
+  // compare password
+  hasMatchingPassword(hashedPassword) {
+    return bcrypt.compare(this.password, hashedPassword);
+  }
+
+  // Signup
   async signup() {
     const hashedPassword = await bcrypt.hash(this.password, 12); // hashpassword
 

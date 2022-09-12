@@ -9,7 +9,7 @@ const createSessionStore = () => {
     databaseName: 'meeseeks',
     collection: 'sessions',
   });
-  
+
   return store;
 };
 
