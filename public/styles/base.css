@@ -79,3 +79,17 @@ a{
   background-color: var(--color-primary-700);
   border: 1px solid var(--color-primary-700);
 }
+
+.logo {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding-top: 2px;
+}
+
+.logo > img {
+  width: 25px;
+}
+.logo > a {
+  font-size: large;
+}

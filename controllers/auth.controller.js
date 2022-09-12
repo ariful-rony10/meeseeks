@@ -4,12 +4,29 @@
  */
 const User = require('../models/user.model');
 const authUtil = require('../util/authentication');
+const validation = require('../util/validation');
 // GET signup page
 const getSignupPage = (req, res) => {
   res.status(200).render('customer/auth/signup');
 };
 // POST signup page
 const signup = async (req, res, next) => {
+  // Validate user details
+  if (
+    !userDetailsAreValid.userDetailsAreValid(
+      req.body.email,
+      req.body.password,
+      req.body.fullname,
+      req.body.street,
+      req.body.postal,
+      req.body.city
+    ) ||
+    !validation.emailIsConfirmed(req.body.email, req.body['confirm-email'])
+  ) {
+    res.redirect('/signup');
+    return;
+  }
+  // Create user data object
   const user = new User(
     req.body.email,
     req.body.password,
@@ -18,9 +35,18 @@ const signup = async (req, res, next) => {
     req.body.postal,
     req.body.city
   );
+
   try {
+    // Check if  the user email already exists in the db
+    const existsAlready = await user.existsAlready();
+    if (existsAlready) {
+      res.redirect('/signup');
+      return;
+    }
+    // insert into db
     await user.signup();
   } catch (error) {
+    // if error throw error
     next(error);
     return;
   }
