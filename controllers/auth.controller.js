@@ -8,12 +8,27 @@ const validation = require('../util/validation'); // validation
 const sessionFlash = require('../util/session-flash'); // session flash
 // GET signup page
 const getSignupPage = (req, res) => {
-  res.status(200).render('customer/auth/signup');
+  let sessionData = sessionFlash.getSessionData(req);
+
+  if (!sessionData) {
+    sessionData = {
+      email: '',
+      confirmEmail: '',
+      password: '',
+      fullname: '',
+      street: '',
+      postal: '',
+      city: '',
+    };
+  }
+
+  res.status(200).render('customer/auth/signup', { inputData: sessionData });
 };
 // POST signup page
 const signup = async (req, res, next) => {
   const enteredData = {
     email: req.body.email,
+    confirmEmail: req.body['confirm-email'],
     password: req.body.password,
     fullname: req.body.fullname,
     street: req.body.street,
@@ -22,7 +37,7 @@ const signup = async (req, res, next) => {
   };
   // Validate user details
   if (
-    !userDetailsAreValid.userDetailsAreValid(
+    !validation.userDetailsAreValid(
       req.body.email,
       req.body.password,
       req.body.fullname,
@@ -135,7 +150,15 @@ const login = async (req, res, next) => {
 };
 // GET login page
 const getLoginPage = (req, res) => {
-  res.status(200).render('customer/auth/login');
+  let sessionData = sessionFlash.getSessionData(req);
+
+  if (!sessionData) {
+    sessionData = {
+      email: '',
+      password: '',
+    };
+  }
+  res.status(200).render('customer/auth/login', { inputData: sessionData });
 };
 // user logout
 const logout = (req, res) => {
