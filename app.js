@@ -3,11 +3,12 @@
  * Description: Application entry point.
  */
 
-const express = require('express');
-const path = require('path');
-const csrf = require('csurf')
-const db = require('./database/database');
-const authRoute = require('./routers/auth.router');
+const express = require('express'); // import express
+const path = require('path'); // import builtin path 
+const csrf = require('csurf') // import csrf package
+const db = require('./database/database'); // import database
+const addCsrfTokenMiddleware = require('./middlewares/csrf-token') // import custom csrf token middleware
+const authRoute = require('./routers/auth.router'); // import auth route
 
 const app = express();
 
@@ -23,7 +24,7 @@ app.use(express.urlencoded({ extended: false }));
 
 // csrf protection
 app.use(csrf())
-
+app.use(addCsrfTokenMiddleware);
 // Routes
 app.use(authRoute);
 
