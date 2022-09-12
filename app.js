@@ -6,6 +6,9 @@
 const express = require('express'); // import express
 const path = require('path'); // import builtin path 
 const csrf = require('csurf') // import csrf package
+const expressSession = require('express-session')
+
+const createSessionConfig = require('./config/session') // import session 
 const db = require('./database/database'); // import database
 
 const errorHandlerMiddleware = require('./middlewares/errorHandler') // import error handler middleware
@@ -24,6 +27,9 @@ app.set('views', path.join(__dirname, 'views'));
 app.use(express.static('public')); // static folder
 app.use(express.urlencoded({ extended: false }));
 
+// session 
+const sessionConfig = createSessionConfig();
+app.use(expressSession(sessionConfig))
 // csrf protection
 app.use(csrf())
 app.use(addCsrfTokenMiddleware);
