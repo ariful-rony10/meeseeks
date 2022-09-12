@@ -1,8 +1,12 @@
-<%- include('../includes/head.ejs', {pageTitle: "Meeseeks | Login"}) %>
+<%- include('../includes/head.ejs', {pageTitle: "Meeseeks | Signup"}) %>
+  <link rel="stylesheet" href="/styles/forms.css">
+  <link rel="stylesheet" href="/styles/auth.css">
+</head>
 <body>
   <%- include('../includes/header.ejs') %>
   <main>
-    <form action="" method="POST">
+    <h1>Login</h1>
+    <form action="/signup" method="POST">
       <p>
         <label for="email">Email</label>
         <input
@@ -10,6 +14,7 @@
           name="email"
           id="email"
           placeholder="something@anything.com"
+          required
         />
       </p>
       <p>
@@ -19,11 +24,11 @@
           name="password"
           id="password"
           placeholder="********"
+          required
         />
       </p>
-
       <button class="btn">Login</button>
-      <p><a href="/login">Don't have a account? - Signup instead</a></p>
+      <p id="switch-form"><a href="/signup">Create New User</a></p>
     </form>
     <%- include('../includes/footer.ejs') %>
   </main>
