@@ -1,96 +1,11 @@
-<%- include('../../shared/includes/head.ejs', {pageTitle: "Meeseeks | Signup"}) %>
-  <link rel="stylesheet" href="/styles/forms.css">
-  <link rel="stylesheet" href="/styles/auth.css">
+<%- include('../includes/head', {pageTitle: 'Signup'}) %>
 </head>
 <body>
-  <%- include('../../shared/includes/header.ejs') %>
-  <main>
-    <% if(inputData.errorMessage) { %> 
-      <section class="alert">
-        <h2>Invalid Inputs</h2>
-        <p><%= inputData.errorMessage %></p>
-      </section>
-    <% } %> 
-    <h1>Create New Account</h1>
-    <form action="/signup" method="POST">
-      <input type="hidden" name="_csrf" value="<%= locals.csrfToken %>">
-      <p>
-        <label for="email">Email</label>
-        <input
-          type="email"
-          name="email"
-          id="email"
-          placeholder="something@anything.com"
-          value="<%= inputData.email %>"
-          required
-        />
-      </p>
-      <p>
-        <label for="confirm-email">Confirm Email</label>
-        <input
-          type="email"
-          name="confirm-email"
-          id="confirm-email"
-          placeholder="something@anything.com"
-          value="<%= inputData.confirmEmail %>"
-          required
-        />
-      </p>
-      <p>
-        <label for="password">Password</label>
-        <input
-          type="password"
-          name="password"
-          id="password"
-          placeholder="********"
-          value="<%= inputData.password %>"
-          required
-        />
-      </p>
-      <hr />
-      <p>
-        <label for="fullname">Full Name</label>
-        <input
-          type="text"
-          name="fullname"
-          id="fullname"
-          value="<%= inputData.fullname %>"
-          placeholder="something@anything.com"
-          required
-        />
-      </p>
-      <p>
-        <label for="street">Street</label>
-        <input type="text" 
-        name="street" 
-        id="street" 
-        placeholder="Madani Ave"  
-        value="<%= inputData.street %>"
-        required/>
-      </p>
-      <p>
-        <label for="postal">Postal Code</label>
-        <input type="text" 
-        minlength="4" 
-        maxlength="4" 
-        name="postal" 
-        id="postal" 
-        placeholder="1212" 
-        value="<%= inputData.postal %>"
-        required/>
-      </p>
-      <p>
-        <label for="city">City</label>
-        <input type="text" 
-        name="city" 
-        id="city" 
-        placeholder="Dhaka" 
-        value="<%= inputData.city %>"
-        required/>
-      </p>
-      <button class="btn">Create Account</button>
-      <p id="switch-form"><a href="/login">Already have a account? - login instead</a></p>
-    </form>
-    <%- include('../../shared/includes/footer.ejs') %>
-  </main>
-</body>
+    <%- include('../includes/header') %>
+    <main>
+        <h1>Create New Account</h1>
+        <form action="" method="">
+            
+        </form>
+    </main>
+<%- include('../includes/footer.ejs')%>

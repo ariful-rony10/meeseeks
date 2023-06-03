@@ -1,7 +1,0 @@
-{
-  "workbench.colorTheme": "Default Dark+",
-  "editor.fontFamily": "Fira Code, monospace",
-  "editor.fontSize": 16,
-  "terminal.integrated.fontFamily": "Menlo", // terminal font
-  "terminal.integrated.fontSize": 14, // terminal font size
-}

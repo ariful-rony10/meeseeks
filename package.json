@@ -1,26 +1,19 @@
 {
-  "name": "Meeseeks",
+  "name": "meeseeks",
   "version": "1.0.0",
-  "description": "An ecommerce site.",
-  "main": "app.js",
-  "repository": "https://github.com/ariful-rony10/meeseeks.git",
-  "author": "Md. Ariful Islam",
-  "license": "MIT",
+  "main": "index.js",
   "scripts": {
-    "start": "node app",
-    "dev": "nodemon app"
+    "start": "node app.js",
+    "dev": "nodemon app.js"
   },
+  "repository": "https://github.com/arifulrony10/meeseeks.git",
+  "author": "Md. Ariful Islam <inbox.ariful@gmail.com>",
+  "license": "MIT",
   "dependencies": {
-    "bcrypt": "^5.0.1",
-    "connect-mongodb-session": "^3.1.1",
-    "csurf": "^1.11.0",
-    "dotenv": "^16.0.1",
-    "ejs": "^3.1.8",
-    "express": "^4.18.1",
-    "express-session": "^1.17.3",
-    "mongodb": "^4.9.1"
+    "ejs": "^3.1.9",
+    "express": "^4.18.2"
   },
   "devDependencies": {
-    "nodemon": "^2.0.19"
+    "nodemon": "^2.0.22"
   }
 }
